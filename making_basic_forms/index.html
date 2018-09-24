@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.js"></script>
+</head>
+<body>
+    <div id="root"></div>
+    <script type="text/babel">
+    class App extends React.Component {
+            handleSubmit = event => {
+            event.preventDefault();
+            console.log(event.target[0].value)
+            console.log(event.target.elements.username.value)
+            console.log(this.inputNode.value)
+            }
+
+        render() {
+            return (
+                <div>
+                <form onSubmit={this.handleSubmit}>
+                    <label>Name: 
+                        <input type="text" name="username" ref={node => (this.inputNode = node)} />
+                    </label>
+                    <button>Submit</button>
+                </form>
+                </div>
+            )
+        }
+    }
+    
+        const element = <App />
+        ReactDOM.render(
+            element,
+            document.getElementById('root')
+        )
+      </script>
+</body>
+</html>
