@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.js"></script>
+</head>
+<body>
+    <div id="root"></div>
+    <script type="text/babel">
+    class App extends React.Component {
+            state = { error : this.props.getErrorMessage('Error')}
+
+            handleSubmit = event => {
+                event.preventDefault();
+                const value = event.target.elements.username.value
+                const error = this.props.getErrorMessage(value,)
+                if (error) {
+                    alert(`error: ${error}`)
+                }
+                else {
+                    alert(`success : ${value}`)
+                }
+            }
+
+            handleChange = (event) => {
+                const {value} = event.target
+                this.setState({
+                    error: this.props.getErrorMessage(value)
+                })
+            }
+        
+
+        render() {
+            const { error } = this.state;
+            return (
+                <div>
+                <form onSubmit={this.handleSubmit}>
+                    <label>Name: 
+                        <input type="text" onChange={this.handleChange} name="username" ref={node => (this.inputNode = node)} />
+                    </label>
+                    { error ? <div style={{color:'red'}}>{error}</div> : null}
+                    <button disabled={Boolean(error)}>Submit</button>
+                </form>
+                </div>
+            )
+        }
+    }
+    
+        const element = <App getErrorMessage={value => {
+            if (value.length < 3) {
+                return `Value must be at least 3 characters `
+            }
+            if (!value.includes('s')) {
+                return `Value does not include 's' but it should be`
+            }
+            return null
+        }}/>
+        ReactDOM.render(
+            element,
+            document.getElementById('root')
+        )
+      </script>
+</body>
+</html>
